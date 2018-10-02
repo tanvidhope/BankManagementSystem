@@ -5,6 +5,7 @@ from django.db.models import CASCADE
 
 
 class User(models.Model):
+    acc_number = models.IntegerField()
     name = models.CharField(max_length=100)
     address = models.CharField(max_length=100)
     phone_number = models.CharField(max_length=12)

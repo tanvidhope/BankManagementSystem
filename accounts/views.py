@@ -11,5 +11,9 @@ class SignUp(generic.CreateView):
     template_name = 'signup.html'
 
 
-class TransactionViewSet:
+class TransactionSet:
     template_name = 'transaction_form.html'
+
+
+class TransactionViewSet:
+    template_name = 'transaction_info.html'
