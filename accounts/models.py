@@ -13,11 +13,11 @@ class User(models.Model):
 
     def lower_balance(self, amount):
         self.balance -= amount
-        self.save
+        self.save()
 
     def increase_balance(self, amount):
         self.balance += amount
-        self.save
+        self.save()
 
 
 class Transaction(models.Model):
