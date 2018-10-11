@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
@@ -5,11 +6,14 @@ from django.db.models import CASCADE
 
 
 class User(models.Model):
-    acc_number = models.IntegerField()
-    name = models.CharField(max_length=100)
-    address = models.CharField(max_length=100)
-    phone_number = models.CharField(max_length=12)
-    balance = models.IntegerField()
+    account_number = models.IntegerField(default=0)
+    username = models.CharField(max_length=100)
+    # address = models.CharField(max_length=100)
+    # phone_number = models.CharField(max_length=12)
+    balance = models.IntegerField(default=0)
+    # user = models.OneToOneField(User, on_delete=models.CASCADE)
+    # date_of_birth = models.DateField(null=True)
+    # Acc_balance = models.DecimalField(default=0, decimal_places=2, max_digits=20)
 
     def lower_balance(self, amount):
         self.balance -= amount

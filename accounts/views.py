@@ -20,18 +20,21 @@ class SignUp(generic.CreateView):
 def transactionset(request2):
     if request2.method == 'POST':
      form = forms.TransactionForm(request2.POST)
+     user = User.objects.get(username=request.user)
      if form.is_valid():
         amount = form.cleaned_data['amount']
         formset = form.save()
-        sender = form.cleaned_data['sender']
-        receiver = form.cleaned_data['receiver']
-        sender.lower_balance(sender,amount)
-        receiver.increase_balance(sender,amount)
-        # save transaction to db
+        # sender.lower_balance(sender,amount)
+        # receiver.increase_balance(sender,amount)
+        sender = User.objects.get(username=request.user)
+        reciever = User.objects.get(username=formset.reciever)
+        sender.User.lower_balance(formset.amount)
+        reciever.User.increase_balance(formset.amount)
+        # TODO: save transaction to db
 
     else:
         form = forms.TransactionForm()
-        return render(request2, 'templates/transaction_form.html', {'form':form} )
+        return render(request2, 'templates/transaction_form.html', {'form': form})
 
 
 class TransactionViewSet:
