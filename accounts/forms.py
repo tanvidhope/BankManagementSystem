@@ -8,14 +8,13 @@ from . import models
 class TransactionForm(forms.ModelForm):
 
     # sender = models
-
     class Meta:
         model = models.Transaction
-        fields = ['sender', 'receiver', 'amount']
+        fields = ('sender', 'receiver', 'amount')
 
 
 class SignUpForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('account_number', 'username', 'balance', 'password1', 'password2')
+        fields = ('username', 'balance', 'password1', 'password2')
