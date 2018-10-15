@@ -1,7 +1,7 @@
 # accounts/views.py
 from django.contrib.auth import authenticate, login, logout
 from django.http import request
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
 from django.views import generic
@@ -13,7 +13,7 @@ from accounts.models import User, Transaction
 from . import forms
 
 
-def sign_up():
+def sign_up(request2):
     # form_class = UserCreationForm
     # success_url = reverse_lazy('login')
     # template_name = 'signup.html'
@@ -26,8 +26,24 @@ def sign_up():
     # profile = User.objects.filter(user=user)
     # user.profile.balance(balance)
     # user.save()
-    form = SignUpForm()
-    return render(request, 'SignUp.html', {form:'form'})
+
+    # form = SignUpForm()
+    # return render(request, 'SignUp.html', {form:'form'})
+
+    if request2.method == 'POST':
+        form = SignUpForm(request2.POST)
+        if form.is_valid():
+            user = form.save()
+            user.refresh_from_db()  # load the profile instance created by the signal
+            user.User.balance = form.cleaned_data.get('balance')
+            user.save()
+            raw_password = form.cleaned_data.get('password1')
+            user = authenticate(username=user.username, password=raw_password)
+            login(request2, user)
+            return redirect('home')
+    else:
+        form = SignUpForm()
+    return render(request2, 'SignUp.html', {'form': form})
 
 
 def transaction_set(request2):
@@ -49,7 +65,7 @@ def transaction_set(request2):
 
     else:
         form = forms.TransactionForm()
-        return render(request2, 'accounts/templates/transaction_form.html', {'form': form})
+        return render(request2, 'transaction_form.html', {'form': form})
 
 
 def lower_balance(self, amount):

@@ -7,7 +7,10 @@ from . import models
 
 class TransactionForm(forms.ModelForm):
 
-    # sender = models
+    sender = forms.ModelChoiceField(queryset=User.objects.all())
+    receiver = forms.ModelChoiceField(queryset=User.objects.all())
+    amount = forms.IntegerField(required=True)
+
     class Meta:
         model = models.Transaction
         fields = ('sender', 'receiver', 'amount')

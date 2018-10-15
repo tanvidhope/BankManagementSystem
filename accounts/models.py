@@ -6,8 +6,6 @@ from django.db.models import CASCADE
 
 
 class User(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    # account_number = models.IntegerField(default=0)
     username = models.CharField(max_length=100, default=0)
     balance = models.IntegerField(default=500)
 
