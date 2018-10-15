@@ -35,7 +35,7 @@ def sign_up(request2):
         if form.is_valid():
             user = form.save()
             user.refresh_from_db()  # load the profile instance created by the signal
-            user.User.balance = form.cleaned_data.get('balance')
+            user.balance = form.cleaned_data.get('balance')
             user.save()
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=user.username, password=raw_password)

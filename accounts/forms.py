@@ -16,9 +16,11 @@ class TransactionForm(forms.ModelForm):
         fields = ('sender', 'receiver', 'amount')
 
 
-class SignUpForm(UserCreationForm):
+class SignUpForm(forms.ModelForm):
     username = forms.CharField(required=False, help_text='Optional.')
     balance = forms.IntegerField(required=True, help_text='Required.')
+    password1 = forms.CharField(required=True)
+    password2 = forms.CharField(required=True)
 
     class Meta:
         model = User
