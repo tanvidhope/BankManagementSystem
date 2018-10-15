@@ -1,0 +1,10 @@
+{% extends base.html %}
+
+{% block content %}
+    <div class="transaction-form">
+        <h2>Transaction form</h2>
+        <form class="" action="{% url 'accounts:transaction" method="post">
+            {{ form }}
+            <input type="submit" value="Create">
+        </form>
+    </div>
